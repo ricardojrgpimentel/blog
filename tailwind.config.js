@@ -11,6 +11,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      screens:{
+        'max-xl': {'max': '1279px'}
+      },
       spacing: {
         '9/16': '56.25%',
       },
@@ -28,7 +31,8 @@ module.exports = {
         gray: colors.trueGray,
         bigTitle:{
           DEFAULT: "#374453"
-        }
+        },
+        blackish: '#050505'
       },
       typography: (theme) => ({
         DEFAULT: {

@@ -42,7 +42,6 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
         {...frontMatter}
       />
       <article>
-        <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-6">
             <div className="space-y-1 text-center">
               <dl className="space-y-10">
@@ -60,45 +59,8 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
               </div>
             </div>
           </header>
-          <div
-            className="pb-8 divide-y divide-gray-200 xl:divide-y-0 dark:divide-gray-700"
-          >
-            <dl className="pt-6 pb-10 xl:pt-11 xl:border-b xl:border-gray-200 xl:dark:border-gray-700">
-              <dt className="sr-only">Authors</dt>
-              <dd>
-                <ul className="flex justify-center space-x-8 xl:block sm:space-x-12 xl:space-x-0 xl:space-y-8">
-                  {authorDetails.map((author) => (
-                    <li className="flex items-center space-x-2" key={author.name}>
-                      {author.avatar && (
-                        <Image
-                          src={author.avatar}
-                          width="38px"
-                          height="38px"
-                          alt="avatar"
-                          className="w-10 h-10 rounded-full"
-                        />
-                      )}
-                      <dl className="text-sm font-medium leading-5 whitespace-nowrap">
-                        <dt className="sr-only">Name</dt>
-                        <dd className="text-gray-900 dark:text-gray-100">{author.name}</dd>
-                        <dt className="sr-only">Twitter</dt>
-                        <dd>
-                          {author.twitter && (
-                            <Link
-                              href={author.twitter}
-                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                            >
-                              {author.twitter.replace('https://twitter.com/', '@')}
-                            </Link>
-                          )}
-                        </dd>
-                      </dl>
-                    </li>
-                  ))}
-                </ul>
-              </dd>
-            </dl>
-            <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:pb-0 xl:col-span-3 xl:row-span-2">
+          <div className="pb-8">
+            <div className="xl:pb-0 xl:col-span-3 xl:row-span-2">
               <div className="pt-10 pb-8 prose dark:prose-dark max-w-none">{children}</div>
               <div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
                 <Link href={discussUrl(slug)} rel="nofollow">
@@ -111,39 +73,27 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
             </div>
             <footer>
               <div className="text-sm font-medium leading-5 divide-gray-200 xl:divide-y dark:divide-gray-700 xl:col-start-1 xl:row-start-2">
-                {tags && (
-                  <div className="py-4 xl:py-8">
-                    <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                      Tags
-                    </h2>
-                    <div className="flex flex-wrap">
-                      {tags.map((tag) => (
-                        <Tag key={tag} text={tag} />
-                      ))}
-                    </div>
-                  </div>
-                )}
                 {(next || prev) && (
-                  <div className="flex flex-row justify-between">
+                  <div className="grid grid-cols-1 py-2 xl:grid-cols-2">
                     {prev && (
-                      <div>
+                      <Link href={`/blog/${prev.slug}`} className="p-5 xl:mr-1 mb-1 xl:mb-0 rounded-md transition duration-500 ease-in-out bg-gray-500 bg-opacity-5 hover:bg-opacity-20">
                         <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                          Previous Article
+                          Publicação Anterior
                         </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/blog/${prev.slug}`}>{prev.title}</Link>
+                        <div className="text-2xl text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                          <p>{prev.title}</p>
                         </div>
-                      </div>
+                      </Link>
                     )}
                     {next && (
-                      <div className="text-right">
+                      <Link href={`/blog/${next.slug}`} className="p-5 rounded-md transition duration-500 ease-in-out bg-gray-500 bg-opacity-5 hover:bg-opacity-20 text-right">
                         <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                          Next Article
+                          Publicação SEguinte
                         </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/blog/${next.slug}`}>{next.title}</Link>
+                        <div className="text-2xl text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                          <p>{next.title}</p>
                         </div>
-                      </div>
+                      </Link>
                     )}
                   </div>
                 )}
@@ -153,12 +103,23 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                   href="/blog"
                   className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                 >
-                  &larr; Back to the blog
+                  &larr; Lista de publicações
                 </Link>
               </div>
+              {tags && (
+                  <div className="py-4 xl:py-8">
+                    <h2 className="text-xs mb-2 tracking-wide text-gray-500 uppercase dark:text-gray-400">
+                      Tags
+                    </h2>
+                    <div className="flex flex-wrap">
+                      {tags.map((tag) => (
+                        <Tag key={tag} text={tag} />
+                      ))}
+                    </div>
+                  </div>
+                )}
             </footer>
           </div>
-        </div>
       </article>
     </SectionContainer>
   )

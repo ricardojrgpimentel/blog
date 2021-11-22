@@ -5,7 +5,7 @@ import { PageSEO } from '@/components/SEO'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { ComponentProps } from 'react'
 
-export const POSTS_PER_PAGE = 5
+export const POSTS_PER_PAGE = 10
 
 export const getStaticProps: GetStaticProps<{
   posts: ComponentProps<typeof ListLayout>['posts']
@@ -34,7 +34,7 @@ export default function Blog({
         posts={posts}
         initialDisplayPosts={initialDisplayPosts}
         pagination={pagination}
-        title="All Posts"
+        title="Todas as publicações"
       />
     </>
   )
