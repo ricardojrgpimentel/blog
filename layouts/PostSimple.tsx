@@ -19,7 +19,7 @@ export default function PostLayout({ frontMatter, next, prev, children }: Props)
   const { slug, date, title } = frontMatter
 
   return (
-    <SectionContainer>
+    <>
       <BlogSEO url={`${siteMetadata.siteUrl}/blog/${slug}`} {...frontMatter} />
       <article>
         <div>
@@ -73,6 +73,6 @@ export default function PostLayout({ frontMatter, next, prev, children }: Props)
           </div>
         </div>
       </article>
-    </SectionContainer>
+    </>
   )
 }
