@@ -1,0 +1,113 @@
+---
+title: Debug projeto create-react-app no visual studio code
+date: '2021-11-24'
+tags: ['react', 'vscode']
+draft: false
+summary: Debug direto de uma aplicação de react, diretamente no visual studio code.
+images: []
+layout: PostLayout
+authors: ['default']
+---
+
+<TOCInline toc={props.toc} asDisclosure />
+
+## A razão
+
+A aplicação de React, na qual trabalho há mais de 4 anos, utiliza a famosa _toolchain_ **create-react-app**.
+
+Sendo bastante popular, recebe com alguma frequência atualizações, entre bug fixes e outras funcionalidades.
+
+Para ser sincero, raramente olho para as novas funcionalidades que são lançadas, pois quando me encontro na situação de precisar de
+atualizar os módulos de npm, a primeira tarefa que quero ver completa, é a de atualizar os módulos, sem sofrer qualquer alteração
+ao bom funcionamento da aplicação web.
+
+Até à pouco mais de uma semana, quando estava a procurar por uma solução, de como usar alguma ferramenta (Eslint, Prettier), de forma
+a manter a mesma estrutura e padrões de programação, em todo o código, entre programadores.
+
+Na documentação [oficial](https://create-react-app.dev/docs/setting-up-your-editor/#debugging-in-the-editor) deparei-me com a seguinte secção: **Debugging in the Editor**.
+
+## A ferramenta
+
+![vscode_debug](/static/images/vscode/vscode_debug.png)
+
+O **visual studio code**, editor que uso para programar, tem uma funcionalidade, que permite realizar o debug do código, diretamente no editor, sem a necessidade
+de trocar entre a janela do _browser_ e a janela do editor, com várias ferramentas e informações relevantes, para o debug da aplicação web.
+
+Visto que me encontro, à data da criação desta publicação, fora de casa, estou limitado ao uso de um ecrã (portátil).
+
+Um simples _console.log()_ requer alguns passos extra, no que toma a trocar de janela, pode parecer uma razão estupída,
+mas quanto estão concentrados na tarefa em curso, esta troca de ecrãs/janelas pode tornar-se um incómodo.
+
+## A configuração
+
+Como mostra a documentação, a configuração é bastante simples.
+
+Na pasta _.vscode_ devem de criar um ficheiro com o nome **launch.json**, ao qual devem de adicionar a seguinte configuração:
+
+```json:launch.json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      }
+    }
+  ]
+}
+```
+
+Se esta pasta já existe (o meu caso), devem de editar o ficheiro, de forma a resultar, em algo deste género:
+
+```json:launch.json {25-34} showLineNumbers
+{
+// Use IntelliSense to learn about possible Node.js debug attributes.
+// Hover to view descriptions of existing attributes.
+// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+       "name": "Jest tests",
+       "type": "node",
+       "request": "launch",
+       "program": "${workspaceRoot}/node_modules/jest-cli/bin/jest.js",
+       "stopOnEntry": false,
+       "args": ["--runInBand"],
+       "cwd": "${workspaceRoot}",
+       "preLaunchTask": null,
+       "runtimeExecutable": null,
+       "runtimeArgs": ["--nolazy"],
+       "env": {
+          "NODE_ENV": "development"
+       },
+       "console": "internalConsole",
+       "sourceMaps": true,
+       // "outFiles": []
+    },
+    {
+      "name": "Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://staging.local4.fluxio.cloud:3000", //o meu projeto utiliza um url diferente
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      }
+    }
+  ]
+}
+```
+
+## A utilização
+
+No vosso editor, bastante pressiona a tecla **F5**, ao qual irá iniciar o Chrome com a página definida no campo `url`.
+
+O próprio editor abre uma **DEBUG CONSOLE** onde podem ver a mesma consola disponível no browser, desta forma, um simples `console.log` é diretamente apresentado na consola do editor.
+
+Existem muitas funcionalidades, como criar breakpoints no código, tendo acesso a toda à stack executada, o acesso aos _props_ do componente em questão, bem com o debug direto
+dos testes.
