@@ -4,10 +4,10 @@ const siteMetadata = {
   headerTitle: 'Ricardo Pimentel',
   description: 'Ricardo Pimentel Website',
   language: 'pt-pt',
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
-  siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
-  siteLogo: '/static/images/logo.png',
-  image: '/static/images/avatar.png',
+  siteUrl: 'https://ricardopimen.tel',
+  siteRepo: 'https://github.com/ricardojrgpimentel/blog',
+  siteLogo: '/static/images/default.jpg',
+  image: '/static/images/default.jpg',
   socialBanner: '/static/images/twitter-card.png',
   email: 'eu@ricardopimen.tel',
   github: 'https://github.com/ricardojrgpimentel',
@@ -19,7 +19,7 @@ const siteMetadata = {
   analytics: {
     // supports plausible, simpleAnalytics or googleAnalytics
     plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
-    simpleAnalytics: false, // true or false
+    simpleAnalytics: true, // true or false
     googleAnalyticsId: '', // e.g. UA-000000-2 or G-XXXXXXX
   },
   newsletter: {
@@ -30,7 +30,7 @@ const siteMetadata = {
   comment: {
     // Select a provider and use the environment variables associated to it
     // https://vercel.com/docs/environment-variables
-    provider: 'disqus', // supported providers: giscus, utterances, disqus
+    provider: '', // supported providers: giscus, utterances, disqus
     giscusConfig: {
       // Visit the link below, and follow the steps in the 'configuration' section
       // https://giscus.app/
