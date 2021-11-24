@@ -7,9 +7,7 @@
 
 /* Code title styles */
 .remark-code-title {
-  @apply px-5 py-3 font-mono text-sm font-bold text-gray-200 bg-gray-700 rounded-t;
-  margin-left: -25px;
-  margin-right: -25px;
+  @apply px-5 py-3 font-mono text-sm font-bold text-gray-200 bg-gray-700 rounded-t md:-mx-4;
 }
 
 .remark-code-title + div > pre {
@@ -35,8 +33,7 @@
 }
 
 .prose pre {
-  margin-left: -25px;
-  margin-right: -25px;
+  @apply md:-mx-4;
 }
 
 /* Token styles */

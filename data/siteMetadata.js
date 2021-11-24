@@ -30,7 +30,7 @@ const siteMetadata = {
   comment: {
     // Select a provider and use the environment variables associated to it
     // https://vercel.com/docs/environment-variables
-    provider: 'disqus', // supported providers: giscus, utterances, disqus
+    provider: 'giscus', // supported providers: giscus, utterances, disqus
     giscusConfig: {
       // Visit the link below, and follow the steps in the 'configuration' section
       // https://giscus.app/
@@ -67,9 +67,6 @@ const siteMetadata = {
     disqusConfig: {
       // https://help.disqus.com/en/articles/1717111-what-s-a-shortname
       shortname: process.env.NEXT_PUBLIC_DISQUS_SHORTNAME,
-    },
-    disqus: {
-      shortname: 'ricardopimentel',
     },
   },
 }
