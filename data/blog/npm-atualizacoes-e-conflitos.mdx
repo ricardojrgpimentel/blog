@@ -1,0 +1,84 @@
+---
+title: NPM - Atualizações e conflitos
+date: '2021-11-25'
+tags: ['npm']
+draft: false
+summary: Utilitários de npm para facilitar na manutenção do vosso projeto.
+images: []
+layout: PostLayout
+authors: ['default']
+---
+
+A instalação/remoção e manutenção de dependências de npm pode ser um pouco confuso.
+
+Grande parte dos projetos web, hoje em dia, utilizam o npm para o **bootstrap** dos mesmos.
+
+Muitas das vezes não temos noção das dependências que são usadas para iniciar um simples site estático, como com o **NextJS** ou o **Create-react-app**.
+
+À medida que vamos desenvolvendo a nossa aplicação web, surge a necessidade de instalar alguma dependência.
+
+Com isto o projeto cresce e torna-se cada vez mais complexo, até ao ponto em que ocorre a necessidade de atualizar algum pacote.
+
+## npm-check
+
+Existem centenas de utilitários para ajudar na verificação e atualização de pacotes de npm, de todos os pacotes que tive a oportunidade de exprimentar,
+o **npm-check** destaca-se pela simplicidade e eficiência, na sua utilização.
+
+A instalação passa por instalar globalmente o pacote:
+
+```bash
+npm install -g npm-check
+```
+
+Agora, em qualquer projeto **npm** podem executar o comando:
+
+```bash
+npm-check
+```
+
+Isto resulta em algo do género:
+
+![npm-check](/static/images/npm/npm.png)
+
+Ficamos a saber que, 2 dependências têm atualizações disponiveis, mas que são um pouco diferentes.
+
+A dependência **inquirer** tem uma atualização ao nível de uma **Patch release** ou **Minor release**, o que significa que, muito provavelmente
+não ocorrerá nenhum problema de compatibilidade, com o código atual.
+
+A dependência **husky** já poderá criar vários problemas, pois sendo uma **Major release**, é possivel que a implementação e o uso da mesma tenha sido alterado.
+
+A explicação sobre cada um dos termos encontra-se aqui [Semantic Versioning](https://docs.npmjs.com/about-semantic-versioning).
+
+Com isto, como podemos proceder à atualização das mesmas?
+
+O **npm-check** pode ser invocado com o parâmetro `-u`, o que permite escolher quais as dependências a atualizar, como mostra o exemplo:
+
+![npm-check_-u](/static/images/npm/npm_2.png)
+
+Com o _espaço_ alterados o estado da seleção da dependência, navegando com as setas, e o _Enter_ inicia a instalação dos selecionados.
+
+Desta forma, conseguimos ter um maior controlo das dependências e das possiveis atualizações, bem como o que pode ou não induzir em problemas, na atualização
+das mesmas.
+
+## npm ls
+
+Quando instalamos um pacote de **npm**, a própria dependência pode ou não ter outras dependências, isto faz com que, num projeto complexo, possam
+existir várias versões, da mesma dependência instalado.
+
+Por vezes a dependência em questão pode sofrer algum tipo de conflito, quando várias versões se encontram em execução em simultâneo.
+
+O **npm** permite verificar esta árvore de dependências, com o seguinte comando:
+
+```bash
+npm ls
+```
+
+O comando irá retornar algo do género:
+
+![npm-ls](/static/images/npm/npm_3.png)
+
+Com este resultado, é possivel percebe que, existem várias dependências duplicadas, em que o **npm** instala apenas uma vez, indicado pelo **deduped**.
+
+Caso exista a necessidade de utilizar uma nova dependência, conseguimos saber se existe e qual a versão, que se encontra no projeto.
+
+Ajuda também a perceber qual o pacote responsável por usar alguma versão desatualizada.
