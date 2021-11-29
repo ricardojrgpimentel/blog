@@ -1,0 +1,61 @@
+---
+title: React com Typescript
+date: '2021-11-26'
+tags: ['react', 'javascript', 'typescript']
+draft: true
+summary: React com typescript, declarações e utilização das funcionalidades mais usadas.
+images: []
+layout: PostLayout
+authors: ['default']
+---
+
+´
+O uso do Typescript é uma enorme vantagem, independentemente do tamanho do projeto, a sua utilização em conjunto com um editor de código dedicado,
+como por exemplo, o **visual studio code**, permite captar e previnir possiveis erros lógicos, bem como modular a lógica escolhida para resolver determinado problema.
+
+Nesta publicação, vou documentar as tarefas usadas com mais frequência nos projetos com base no React, para a web.
+
+<TOCInline toc={props.toc} asDisclosure />
+
+## Types
+
+Antes de iniciarmos com exemplos, devemos de ter em conta que quando declaramos um _type_, não estamos a declarar um novo _type_, mas sim a dar um novo nome a um _type_.
+
+A lista de _types_ encontra-se [aqui](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html), ao qual é dado o nome de **Everyday Types**.
+
+É também importante saber quando utilizar os _types_ e as _interfaces_, pois são bastante parecidas, de uma forma resumida uma _interface_ representa
+o formato dos dados e os _types_ os tipos de dados.
+
+A declaração de variáveis é bastante simples, basta apenas declarar a mesma, seguido de `:` e o tipo de variável:
+
+```javascript
+type Pessoa = {
+  //tipos primitivos
+  nome: string
+  idade: number
+  casado: boolean
+  //valores literais
+  naturalidade: 'Portugal' | 'Espanha' | 'Outra'
+  //objetos
+  saude: {
+    //Arrays com vários tipos
+    vacinas : string[] // ou também Array<string>
+    //funções
+    podeVacinar : (idade: number) => boolean
+  },
+  //opcional
+  telefone?: number
+  //eventos de HTML
+  submeter: (evento: React.FormEvent<HTMLInputElement>) => void
+}
+```
+
+## Types com o React
+
+### Classes
+
+#### State
+
+### Componentes funcionais
+
+#### State

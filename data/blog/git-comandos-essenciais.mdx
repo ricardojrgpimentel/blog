@@ -1,0 +1,161 @@
+---
+title: Git - Comandos essenciais
+date: '2021-11-29'
+tags: ['git']
+draft: false
+summary: Comandos essenciais para utilizar o git
+images: []
+layout: PostLayout
+authors: ['default']
+---
+
+O **Git** é uma ferramenta essencial para qualquer programador.
+
+O uso de editores de texto, como o **Visual Studio Code**, pode levar a algum desconhecimento dos comandos usados, quando precisamos de realizar
+outras tarefas, que não sejam um simples _commit & push_.
+
+## Comandos
+
+### Configuração
+
+Antes de usarmos o _git_, temos de o configurar com os seguintes comandos:
+
+```bash
+git config --global user.name "Ricardo Pimentel"
+git config --global user.email "eu@ricardopimen.tel"
+```
+
+### Inicialização
+
+Por norma o projeto é inicializado com o comando:
+
+```bash
+git init
+```
+
+mas em muitos casos o projeto já se encontra criado, sendo apenas necessário _clonar_ o projeto:
+
+```bash
+git clone https://link-do-repositorio.a-clonar.com
+```
+
+### Commit, Push & Pull
+
+O estado do ambiente de trabalho pode ser verificado com o comando:
+
+```bash
+git status
+```
+
+A adição do ficheiros é feita de forma individual, ou de todos os ficheiros alterados, com os seguintes comandos:
+
+```bash
+# ficheiro único
+git add ficheiro.js
+
+# todos os ficheiros
+git add .
+```
+
+Com os ficheiros adicionados, devemos de acompanhar o _commit_ com uma mensagem:
+
+```bash
+git commit -m "Mensagem de commit"
+```
+
+A finalização e envio do _commit_ para o _upstream_:
+
+```bash
+# origin maste referece ao branch
+git push origin master
+```
+
+Para receber e juntar o conteúdo remoto, localmente, basta executar o comando:
+
+```bash
+git pull
+
+# comando com mais detalhe
+git pull --verbose
+```
+
+### Reverter ações
+
+Para ficheiros que ainda não tenham sido adicionamos, podem ser revertidos com o comando:
+
+```bash
+git checkout ficheiro.js
+```
+
+Os ficheiros já adicionamos são revertidos com o comando:
+
+```bash
+# ficheiro único
+git reset HEAD ficheiro.js
+
+# todos os ficheiros
+git reset HARD
+```
+
+Para alterar o _commit_ mais recente basta executar o comando:
+
+```bash
+git commit --amend -m "Nova mensagem para o commit anterior"
+```
+
+caso queiram adicionar novos ficheiros, é também possivel com o seguinte comando:
+
+```bash
+# executado depois de adicionar os novos ficheiros
+# --no-edit faz com que a mensagem do commit seja a mesma, remover se necessário
+git commit --amend --no-edit
+```
+
+Para reverter o último _commit_ basta executar o comando:
+
+```bash
+git revert HEAD
+```
+
+Caso seja necessário reverter para um _commit_ especifico devem de executar o seguinte comando:
+
+```bash
+# 9eff3 corresponde aos primeiros caracteres do id do commit
+git commit 9eff3
+```
+
+### Branches
+
+A criação de um novo _branch_ é feita com o seguinte comando:
+
+```bash
+git branch nome_novo_branch
+
+# para criar e alterar o branch atual
+git checkout -b nome_novo_branch
+```
+
+Para verificar todos os _branches_:
+
+```bash
+git branch
+
+# todos os branches incluíndo os remotos
+git branch -a
+```
+
+Para apagar um _branch_, deve de usar o comando:
+
+```bash
+# apagar localmente
+git branch -d nome_do_branch
+
+# apagar remotamente
+git push origin --delete nome_do_branch
+```
+
+Para juntar 2 _branches_, devem de se encontrar no _branch_ que vai receber o _merge_ e executar:
+
+```bash
+git merge nome_do_branch
+```
