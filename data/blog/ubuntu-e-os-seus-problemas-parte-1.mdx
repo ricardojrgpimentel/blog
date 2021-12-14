@@ -1,0 +1,83 @@
+---
+title: Ubuntu e os seus problemas - Parte 1
+date: '2021-12-14'
+tags: ['ubuntu']
+draft: false
+summary: Todos os problemas que encontro, no uso diário do Ubuntu
+images: []
+layout: PostLayout
+authors: ['default']
+---
+
+Atualmente estou a utilizar o Ubuntu 21.04 como principal sistema operativo, quer para trabalho, quer para lazer.
+
+Podem verificar, de forma mais detalhada, sobre o meu setup nesta [publicação](https://ricardopimen.tel/blog/o-meu-setup-webdev-remoto).
+
+_Out-of-the-box_ tudo funciona, em termos de hardware, a câmara e o microfone funcionam sem problemas, o leitor de impressão digital precisou apenas
+de uma atualização dos pacotes, o som, apesar de ser um pouco mais baixo, em termos de volume e com menos **bass**, funciona sem problemas.
+
+O trackpad tem suporte para vários gestos, que se encontram perfeitamente integrados com o **Gnome**.
+
+Apesar de tudo funcionar, à primeira vista, o uso continuado do mesmo _destapa_ alguns buracos, sejam estes _bugs_ ou problemas conceptuais.
+
+## Ubuntu Software
+
+Esta aplicação permite instalar, remover e atualizar softeare, sem ser necessário recorrer ao terminal, apesar do terminal ser mais rápido,
+se soubermos os comandos a executar, é sempre uma agradável presença no sistema.
+
+Num caso prático procurei utilizar o _**Ubuntu Software**_ para instalar o _**cmake**_, com o seguinte resultado:
+
+![ubuntu-software](/static/images/ubuntu-software/cmake.png)
+
+Existem vários resultados, o pacote em questão, um editor de código, uma aplicação de comparação de imagens, e projetos pessoais?
+
+Sem perceber bem qual a relação entre os resultados e o termo pesquisado, vamos ver o pacote em questão.
+
+No caso do **CMake** temos 2 pacotes com o mesmo nome, apesar de terem uma pequena diferença no uso de caixa alta e caixa baixa para o titulo,
+têm descrições diferentes com o mesmo sentido, utilizam o mesmo logótipo e apresentam pontuações diferentes.
+
+#### Qual devo escolher?
+
+Ainda sem certezas seleciono a primeira opção:
+
+![cmake-1](/static/images/ubuntu-software/cmake1.png)
+
+Focando a atenção no que interessa, conseguimos saber que, este pacote é a versão **3.18.4** com cerca de **2MB** de tamanho.
+
+Vamos então verificar a segunda opção:
+
+![cmake-2](/static/images/ubuntu-software/cmake2.png)
+
+Versão **3.22.1** mas ocupa **137.6MB**???
+
+Porque é que temos esta enorme diferença de tamanho entre pacotes?
+
+Para quem comparou ambas as imagens, com mais atenção, reparou que, a segunda opção é proveniente do site [snapcraft.io](https://snapcraft.io).
+
+De uma forma muito resumida, os _**Snaps**_ são pacotes de instalação de software, criado pela **Canonical**,
+que armazenam todas as dependências necessárias, para executar o software em questão, em qualquer sistema operativo, baseado em Linux.
+
+Isto faz com que o _bundle_ da aplicação seja enorme, daí a diferença no tamanho, sem querer entrar em detalhes nos pros e contras desta solução,
+o **Ubuntu Software** apresenta uma lista de resultados, pobre em termos de **UX**, com opções sem aparente relação com o termo pesquisado,
+misturando os pacotes existentes nos seus repositórios, com a _store_ dos _snaps_.
+
+## Instalação
+
+De forma a instalar o _**CMake**_ sem utilizar os _snaps_, tenho de recorrer à seguinte opção:
+
+```bash
+#dependências necessárias
+sudo apt install build-essential libssl-dev
+```
+
+```bash
+#clonar o projeto
+git clone https://github.com/Kitware/CMake.git
+```
+
+```bash
+#entrar na pasta
+cd CMake
+#compilar e instalar
+./bootstrap && make && sudo make install
+```
