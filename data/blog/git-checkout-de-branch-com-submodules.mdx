@@ -1,0 +1,34 @@
+---
+title: Git checkout de branch com submodules
+date: '2022-01-21'
+tags: ['git']
+draft: false
+summary: Como alterar entre branches de um repositório git, quando o branch atual tem novos submodules adicionados
+images: []
+layout: PostLayout
+authors: ['default']
+---
+
+# Problema
+
+Temos um branch em que adicionamos alguns _submodules_ e precisamos de mudar de branch, seja para fazer _merge_, seja para trabalhar noutra _feature_.
+
+Ao tentarmos fazer `git checkout nome-do-branch`, o git indica que temos ficheiros por enviar, apesar do _branch_ atual estar _up to date_.
+
+# Solução
+
+No caso de apenas precisarem de alterar o _branch_ atual basta:
+
+- Remover todos os ficheiros existentes na pasta do _submodule(s)_ `rm -r caminho/para/a/pasta`
+- Alterar o branch `git checkout nome-do-branch`
+
+Caso seja preciso fazer _merge_ devem de:
+
+- Remover todos os ficheiros existentes na pasta do _submodule(s)_ `rm -r caminho/para/a/pasta`
+- Alterar o branch `git checkout nome-do-branch`
+- Fazer o merge `git merge branch-anterior`
+- Adicionar os ficheiros dos _submodules_ `git submodule update --init --recursive`
+- Verificar que tudo funciona
+- Enviar para _upstream_ `git push`
+
+Continue work as always 😁
