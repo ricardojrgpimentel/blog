@@ -1,0 +1,69 @@
+---
+title: Servir ficheiros locais de forma dinâmica no Nextjs
+date: '2022-01-28'
+tags: ['nextjs', 'javascript']
+draft: false
+summary: Listar e servir ficheiros locais apartir do Nextjs, de forma dinâmica.
+images: []
+layout: PostLayout
+authors: ['default']
+---
+
+## Problema
+
+No desenvolver de um projeto pessoal deparei-me com o seguinte problema:
+
+Tenho uma pasta com _n_ fotografias, quero exibir as mesmas numa página, mas não quero escrever o caminho de cada uma na tag de **{`<Image>`}**.
+Por outro lado a pasta irá receber, futuramente, mais ficheiros aos quais não quero ter de alterar código, para mostrar as novas imagens.
+
+## Solução
+
+O Nextjs tem uma funcionalidade com o nome **API Routes**, isto permite criar uma API dentro do projeto, ao qual podemos aceder como uma API normal, utilizado o sistema de pastas, da mesma forma que criamos as rotas da aplicação com os nomes dos ficheiros/pastas.
+
+Tendo em conta esta funcionalidade a solução passa por:
+
+- Aceder ao conteúdo da pasta em questão, tanto em ambiente de desenvolvimento como em produção
+- Mapear os nomes dos ficheiros com o caminho dos mesmos
+- Servir esta informação como um serviço de API externo
+
+Com esta pequena explicação, vamos então criar dentro da pasta `/api` um ficheiro com o seguinte código:
+
+```js:readfiles.js showLineNumbers
+import fs from 'fs'
+import path from 'path'
+
+const readFiles = (req, res) => {
+  // caminho para a pasta
+  const dirRelativeToPublicFolder = 'fotos/retrato'
+
+  const dir = path.resolve('./public', dirRelativeToPublicFolder);
+  // ler o conteúdo da pasta
+  const filenames = fs.readdirSync(dir);
+  // mapear os nomes dos ficheiros com o caminho especificado acima
+  const images = filenames.map(name => path.join('/', dirRelativeToPublicFolder, name).replace(/\\/g, '/'))
+
+  res.statusCode = 200
+  // devolver em json
+  res.json(images);
+}
+
+export default readFiles
+```
+
+Com isto vamos então chamar o _endpoint_ e apresentar o resultado:
+
+```js
+const fetcher = (url) => fetch(url).then((res) => res.json())
+const { data } = useSWR('/api/readfiles', fetcher)
+```
+
+Neste exemplo a variável **data** apresenta um _array_ com a seguinte estrutura:
+
+```json
+[
+  "/fotos/retrato/nome_ficheiro_1.webp",
+  "/fotos/retrato/nome_ficheiro_2.webp",
+  "/fotos/retrato/nome_ficheiro_3.webp",
+  "/fotos/retrato/nome_ficheiro_4.webp"
+]
+```
