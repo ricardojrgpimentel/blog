@@ -1,0 +1,24 @@
+---
+title: Desativar a aceleração do rato no macOS
+date: '2022-03-21'
+tags: ['MacOS']
+draft: false
+summary: Como desabilitar a aceleração do rato no sistema operativo macOS Monterey
+images: []
+layout: PostLayout
+authors: ['default']
+---
+
+Caso estejam habituados a usar o vosso rato sem aceleração, ao utilizarem o macOS, vão deparar-se com este problema.
+
+Por defeito o sistema acelera a velocidade de deslocação do rato em movimentos rápidos, e diminui a mesma em movimentos lentos.
+
+Esta configuração torna o movimento do rato imprevisivel e um pouco irritante, mas com este comando tudo se resolve:
+
+```bash
+defaults write .GlobalPreferences com.apple.mouse.scaling -1
+```
+
+O número negativo no fim do comando faz com que a aceleração seja desativada, caso pretendam ligar novamente esta abominação, basta executar o mesmo comando mas com um valor positivo, à vossa preferência de aceleração.
+
+Caso o resultado não seja imediato, reiniciar o computador é sempre a solução.
