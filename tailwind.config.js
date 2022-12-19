@@ -11,8 +11,8 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-      screens:{
-        'max-xl': {'max': '1279px'}
+      screens: {
+        'max-xl': { max: '1279px' },
       },
       spacing: {
         '9/16': '56.25%',
@@ -24,15 +24,16 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
+        // @ts-ignore
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         primary: colors.indigo,
         gray: colors.trueGray,
-        bigTitle:{
-          DEFAULT: "#374453"
+        bigTitle: {
+          DEFAULT: '#374453',
         },
-        blackish: '#050505'
+        blackish: '#050505',
       },
       typography: (theme) => ({
         DEFAULT: {
